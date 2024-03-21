@@ -12,7 +12,7 @@ import { mintNFT } from '../Blockchain.Services'
 const auth =
   'Basic ' +
   Buffer.from(
-    process.env.REACT_APP_INFURIA_PID + ':' + process.env.REACT_APP_INFURIA_API,
+    '2Gg95YqQ672apEtGQbewfwGQANc' + ':' + 'b2c85789868e83772bfbc59ddd6d09bb',
   ).toString('base64')
 
 const client = create({
@@ -38,23 +38,23 @@ const CreateNFT = () => {
     if (!title || !price || !description) return
 
     setGlobalState('modal', 'scale-0')
-    setGlobalState('loading', { show: true, msg: 'Uploading IPFS data...' })
+    setGlobalState('loading', { show: true, msg: 'Téléchargement des données IPFS en cours...' })
 
     try {
       const created = await client.add(fileUrl)
       const metadataURI = `https://ipfs.io/ipfs/${created.path}`
       const nft = { title, price, description, metadataURI }
 
-      setLoadingMsg('Intializing transaction...')
+      setLoadingMsg('Initialisation de la transaction...')
       setFileUrl(metadataURI)
       await mintNFT(nft)
 
       resetForm()
-      setAlert('Minting completed...', 'green')
+      setAlert('Création de NFT terminée...', 'green')
       window.location.reload()
     } catch (error) {
-      console.log('Error uploading file: ', error)
-      setAlert('Minting failed...', 'red')
+      console.log('Erreur lors du téléchargement du fichier : ', error)
+      setAlert('Échec de la création de NFT...', 'red')
     }
   }
 
@@ -91,7 +91,7 @@ const CreateNFT = () => {
       <div className="bg-[#151c25] shadow-xl shadow-[#e32970] rounded-xl w-11/12 md:w-2/5 h-7/12 p-6">
         <form className="flex flex-col">
           <div className="flex flex-row justify-between items-center">
-            <p className="font-semibold text-gray-400">Add NFT</p>
+            <p className="font-semibold text-gray-400">Ajouter un NFT</p>
             <button
               type="button"
               onClick={closeModal}
@@ -116,7 +116,7 @@ const CreateNFT = () => {
 
           <div className="flex flex-row justify-between items-center bg-gray-800 rounded-xl mt-5">
             <label className="block">
-              <span className="sr-only">Choose profile photo</span>
+              <span className="sr-only">Choisir une photo de profil</span>
               <input
                 type="file"
                 accept="image/png, image/gif, image/jpeg, image/webp"
@@ -140,7 +140,7 @@ const CreateNFT = () => {
                 focus:outline-none focus:ring-0"
               type="text"
               name="title"
-              placeholder="Title"
+              placeholder="Titre"
               onChange={(e) => setTitle(e.target.value)}
               value={title}
               required
@@ -156,7 +156,7 @@ const CreateNFT = () => {
               step={0.01}
               min={0.01}
               name="price"
-              placeholder="Price (Eth)"
+              placeholder="Prix (Eth)"
               onChange={(e) => setPrice(e.target.value)}
               value={price}
               required
@@ -188,7 +188,7 @@ const CreateNFT = () => {
               hover:border hover:border-[#bd255f]
               focus:outline-none focus:ring mt-5"
           >
-            Mint Now
+            Créer maintenant
           </button>
         </form>
       </div>
